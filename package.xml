@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>serial_parser</name>
+  <version>0.0.0</version>
+  <description>The serial_parser package</description>
+
+  <maintainer email="shrijitsingh99@gmail.com">Shrijit Singh</maintainer>
+
+  <license>TODO</license>
+
+  <url type="repository">http://wiki.ros.org/serial_parser</url>
+
+  <author email="shrijitsingh99@gmail.com">Shrijit Singh</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>serial</depend>
+
+</package>
