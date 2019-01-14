@@ -10,7 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 catkin_package(
  INCLUDE_DIRS include
- LIBRARIES serial_parser
+ LIBRARIES ${PROJECT_NAME}
  CATKIN_DEPENDS roscpp serial
 )
 
@@ -19,7 +19,7 @@ include_directories(
 )
 
 add_library(${PROJECT_NAME}
-  src/serial_parser.cpp
+  src/${PROJECT_NAME}.cpp
 )
 
 add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})

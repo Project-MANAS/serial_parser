@@ -1,15 +1,14 @@
 variables:
   ROS_PACKAGES_TO_INSTALL: "serial"
-  GLOBAL_C11 "true"
+  GLOBAL_C11: "true"
 
 before_script:
-  - git clone https://gitlab.com/project-manas/ai/serial_parser
-  - source ros_gitlab_ci/gitlab-ci.bash >/dev/null
+  - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/project-manas/ai/serial_parser
 
 cache:
   paths:
     - ccache/
-    
+
 # catkin_lint
 catkin lint:
   stage: build
