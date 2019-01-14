@@ -2,6 +2,9 @@
 #include <string>
 #include <vector>
 #include <iterator>
+#include <functional>
+#include <memory>
+
 #include "serial/serial.h"
 
 namespace serial {
@@ -14,13 +17,12 @@ private:
   int end_delimmiter_length;
   int bytes_to_read;
 
-
 public:
   SerialParser(){};
   ~SerialParser(){};
   SerialParser(Serial &serial, std::string start_delimitter, std::string end_delimmiter, int bytes_to_read);
-  std::string parse(bool (*start_function)(uint8_t *, const uint8_t *), bool (*end_function)(uint8_t *, const uint8_t *));
+  std::string parse(std::function<bool(uint8_t *, const uint8_t *)> start_function, std::function<bool(uint8_t *, const uint8_t *)> end_function);
   std::string get_parsed_string();
-  std::string get_parsed_string(bool (*start_function)(uint8_t *, const uint8_t *), bool (*end_function)(uint8_t *, const uint8_t *));
+  std::string get_parsed_string(std::function<bool(uint8_t *, const uint8_t *)> start_function, std::function<bool(uint8_t *, const uint8_t *)> end_function);
 };
 }
