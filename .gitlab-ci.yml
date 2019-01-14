@@ -1,6 +1,6 @@
 variables:
   ROS_PACKAGES_TO_INSTALL: "serial"
-  GLOBAL_C11 "true"
+  GLOBAL_C11: "true"
 
 before_script:
   - git clone https://gitlab.com/project-manas/ai/serial_parser
