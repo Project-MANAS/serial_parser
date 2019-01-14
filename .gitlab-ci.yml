@@ -3,7 +3,7 @@ variables:
   GLOBAL_C11: "true"
 
 before_script:
-  - git clone https://gitlab.com/project-manas/ai/serial_parser
+  - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/project-manas/ai/serial_parser
   - source ros_gitlab_ci/gitlab-ci.bash >/dev/null
 
 cache:
