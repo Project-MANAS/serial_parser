@@ -28,6 +28,11 @@ target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
 )
 
+## Example
+add_executable(parser_example examples/parser_example.cpp)
+add_dependencies(parser_example ${PROJECT_NAME})
+target_link_libraries(parser_example ${PROJECT_NAME})
+
 include_directories(
   include
 )
