@@ -1,20 +1,51 @@
 variables:
   ROS_PACKAGES_TO_INSTALL: "serial"
+  SYSTEM_DEPENDENCIES_TO_INSTALL: ""
   GLOBAL_C11: "true"
 
-before_script:
-  - git clone https://gitlab.com/VictorLamoine/ros_gitlab_ci.git
-  - source ros_gitlab_ci/gitlab-ci.bash >/dev/null
-  - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/project-manas/ai/serial_parser
+# Scripts to run before lint stage
+.lint_before_script: &lint_before_script
+  before_script:
+  - git clone https://gitlab.com/shrijitsingh99/manas-gitlab-ci.git
+  - source manas-gitlab-ci/install-dependencies.bash
 
+# Scripts to run before ROS build stage
+.ros_before_script: &ros_before_script
+  before_script:
+    - git clone https://gitlab.com/VictorLamoine/ros_gitlab_ci.git
+    - source ros_gitlab_ci/gitlab-ci.bash >/dev/null
+
+# CI Stages
+stages:
+  - build
+  - lint
+
+# Cache previous builds
 cache:
   paths:
     - ccache/
 
+# yapf
+yapf:
+  stage: lint
+  image: projectmanas/yapf:latest
+  <<: *lint_before_script
+  script:
+    - ./manas-gitlab-ci/yapf.bash
+
+# clang-format
+clang-format:
+  stage: lint
+  image: projectmanas/clang-format:3.9
+  <<: *lint_before_script
+  script:
+    - ./manas-gitlab-ci/clang-format.bash
+
 # catkin_lint
-catkin lint:
+catkin-lint:
   stage: build
   image: ros:melodic-ros-core
+  <<: *ros_before_script
   before_script:
     - apt update  >/dev/null 2>&1
     - apt install -y python-catkin-lint >/dev/null 2>&1
@@ -25,12 +56,14 @@ catkin lint:
 melodic-catkin_make:
   image: ros:melodic-ros-core
   stage: build
+  <<: *ros_before_script
   script:
     - catkin_make
 
 melodic-catkin_build:
   image: ros:melodic-ros-core
   stage: build
+  <<: *ros_before_script
   script:
     - catkin build --summarize --no-status --force-color
 
@@ -38,24 +71,13 @@ melodic-catkin_build:
 kinetic-catkin_make:
   image: ros:kinetic-ros-core
   stage: build
+  <<: *ros_before_script
   script:
     - catkin_make
 
 kinetic-catkin_build:
   image: ros:kinetic-ros-core
   stage: build
-  script:
-    - catkin build --summarize --no-status --force-color
-
-# Tests for Indigo
-indigo-catkin_make:
-  image: ros:indigo-ros-core
-  stage: build
-  script:
-    - catkin_make
-
-indigo-catkin_build:
-  image: ros:indigo-ros-core
-  stage: build
+  <<: *ros_before_script
   script:
     - catkin build --summarize --no-status --force-color
