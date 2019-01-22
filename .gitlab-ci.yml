@@ -43,7 +43,7 @@ clang-format:
 
 # catkin_lint
 catkin-lint:
-  stage: build
+  stage: lint
   image: ros:melodic-ros-core
   <<: *ros_before_script
   before_script:
