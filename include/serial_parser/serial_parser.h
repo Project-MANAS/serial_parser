@@ -1,8 +1,10 @@
+#include <functional>
 #include <iostream>
 #include <iterator>
+#include <memory>
 #include <string>
-#include <type_traits>
 #include <vector>
+
 #include "serial/serial.h"
 
 namespace serial {
@@ -26,5 +28,6 @@ class SerialParser {
   std::string get_parsed_string();
   std::string get_parsed_string(delimmiter_function* start_function,
                                 delimmiter_function* end_function);
+
 };
-}
+}  // namespace serial
