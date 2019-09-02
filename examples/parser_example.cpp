@@ -3,7 +3,7 @@
 #include <string>
 
 #include "serial/serial.h"
-#include "serial_parser/serial_parser.h"
+#include "../include/serial_parser/serial_parser.h"
 
 std::string port;
 unsigned long baud;
